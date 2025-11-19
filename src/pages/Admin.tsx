@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import Navigation from "@/components/Navigation";
+import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -89,12 +89,11 @@ const Admin = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
-        <Navigation />
+      <DashboardLayout>
         <div className="container mx-auto px-4 py-12 text-center">
           <p className="text-muted-foreground">Loading...</p>
         </div>
-      </div>
+      </DashboardLayout>
     );
   }
 
@@ -103,9 +102,7 @@ const Admin = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-
+    <DashboardLayout>
       <div className="container mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold mb-8">Admin Panel</h1>
 
@@ -211,7 +208,7 @@ const Admin = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 

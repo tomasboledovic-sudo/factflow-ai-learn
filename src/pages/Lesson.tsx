@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
+import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, ArrowRight } from "lucide-react";
@@ -117,32 +118,45 @@ const Lesson = () => {
   };
 
   if (loading) {
+    const loadingContent = (
+      <div className="container mx-auto px-4 py-12 text-center">
+        <p className="text-muted-foreground">Loading lesson...</p>
+      </div>
+    );
+    
+    if (user) {
+      return <DashboardLayout>{loadingContent}</DashboardLayout>;
+    }
+    
     return (
       <div className="min-h-screen bg-background">
         <Navigation />
-        <div className="container mx-auto px-4 py-12 text-center">
-          <p className="text-muted-foreground">Loading lesson...</p>
-        </div>
+        {loadingContent}
       </div>
     );
   }
 
   if (!lesson) {
+    const notFoundContent = (
+      <div className="container mx-auto px-4 py-12 text-center">
+        <p className="text-muted-foreground">Lesson not found</p>
+      </div>
+    );
+    
+    if (user) {
+      return <DashboardLayout>{notFoundContent}</DashboardLayout>;
+    }
+    
     return (
       <div className="min-h-screen bg-background">
         <Navigation />
-        <div className="container mx-auto px-4 py-12 text-center">
-          <p className="text-muted-foreground">Lesson not found</p>
-        </div>
+        {notFoundContent}
       </div>
     );
   }
 
-  return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+  const content = (
+    <div className="container mx-auto px-4 py-12 max-w-4xl">
         <h1 className="text-4xl font-bold mb-6">{lesson.title}</h1>
 
         {lesson.video_url && (
@@ -205,6 +219,16 @@ const Lesson = () => {
           )}
         </div>
       </div>
+  );
+
+  if (user) {
+    return <DashboardLayout>{content}</DashboardLayout>;
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      {content}
     </div>
   );
 };
