@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
+import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -100,32 +101,45 @@ const CourseDetail = () => {
   };
 
   if (loading) {
+    const loadingContent = (
+      <div className="container mx-auto px-4 py-12 text-center">
+        <p className="text-muted-foreground">Loading course...</p>
+      </div>
+    );
+    
+    if (user) {
+      return <DashboardLayout>{loadingContent}</DashboardLayout>;
+    }
+    
     return (
       <div className="min-h-screen bg-background">
         <Navigation />
-        <div className="container mx-auto px-4 py-12 text-center">
-          <p className="text-muted-foreground">Loading course...</p>
-        </div>
+        {loadingContent}
       </div>
     );
   }
 
   if (!course) {
+    const notFoundContent = (
+      <div className="container mx-auto px-4 py-12 text-center">
+        <p className="text-muted-foreground">Course not found</p>
+      </div>
+    );
+    
+    if (user) {
+      return <DashboardLayout>{notFoundContent}</DashboardLayout>;
+    }
+    
     return (
       <div className="min-h-screen bg-background">
         <Navigation />
-        <div className="container mx-auto px-4 py-12 text-center">
-          <p className="text-muted-foreground">Course not found</p>
-        </div>
+        {notFoundContent}
       </div>
     );
   }
 
-  return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-
-      <div className="container mx-auto px-4 py-12">
+  const content = (
+    <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8">
           {/* Course Info */}
           <div className="md:col-span-2">
@@ -234,6 +248,16 @@ const CourseDetail = () => {
           </div>
         </div>
       </div>
+  );
+
+  if (user) {
+    return <DashboardLayout>{content}</DashboardLayout>;
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      {content}
     </div>
   );
 };
