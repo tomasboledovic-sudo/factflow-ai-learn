@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import CourseCard from "@/components/CourseCard";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Zap, Award } from "lucide-react";
+import { BookOpen, Zap, Award, Brain, BarChart3, Code2, Lightbulb } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface Course {
@@ -42,69 +43,69 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-hero py-20 px-4">
-        <div className="container mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Learn faster. Learn smarter.
+      {/* Hero Section - Brilliant.org inspired */}
+      <section className="relative overflow-hidden py-20 px-4">
+        <div className="container mx-auto text-center max-w-5xl">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+            Learn by <span className="italic">doing</span>
           </h1>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Master essential tech skills through short, focused lessons. Excel, Python, SQL, and more — all in bite-sized chunks.
+          <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+            Interactive problem solving that's effective and fun.
           </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Link to="/courses">
-              <Button size="lg" variant="secondary" className="text-lg">
-                Explore All Courses
-              </Button>
-            </Link>
-            <Link to="/auth">
-              <Button size="lg" variant="outline" className="bg-white/10 text-white border-white hover:bg-white hover:text-primary text-lg">
-                Start Free Lesson
-              </Button>
-            </Link>
-          </div>
+          <p className="text-lg md:text-xl text-muted-foreground mb-8">
+            Excel in tech skills through practical, bite-sized lessons.
+          </p>
+          <Link to="/auth">
+            <Button size="lg" className="text-lg px-12 h-14 rounded-full">
+              Get started
+            </Button>
+          </Link>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-16 px-4 bg-muted/30">
+      {/* Categories Section */}
+      <section className="py-12 px-4 border-t border-border">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-                <Zap className="h-8 w-8 text-primary" />
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-5xl mx-auto">
+            <div className="flex flex-col items-center text-center p-4">
+              <div className="w-12 h-12 mb-3">
+                <Brain className="w-full h-full text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Quick Learning</h3>
-              <p className="text-muted-foreground">
-                5-30 minute lessons that fit your schedule
-              </p>
+              <p className="text-sm font-medium">Data Analysis</p>
             </div>
-            <div className="text-center p-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-4">
-                <BookOpen className="h-8 w-8 text-accent" />
+            <div className="flex flex-col items-center text-center p-4">
+              <div className="w-12 h-12 mb-3">
+                <BarChart3 className="w-full h-full text-accent" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Interactive Content</h3>
-              <p className="text-muted-foreground">
-                AI-powered quizzes and practical exercises
-              </p>
+              <p className="text-sm font-medium">Excel</p>
             </div>
-            <div className="text-center p-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-warning/10 mb-4">
-                <Award className="h-8 w-8 text-warning" />
+            <div className="flex flex-col items-center text-center p-4">
+              <div className="w-12 h-12 mb-3">
+                <Code2 className="w-full h-full text-info" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Track Progress</h3>
-              <p className="text-muted-foreground">
-                Earn XP, badges, and maintain your streak
-              </p>
+              <p className="text-sm font-medium">Programming</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-4">
+              <div className="w-12 h-12 mb-3">
+                <Lightbulb className="w-full h-full text-warning" />
+              </div>
+              <p className="text-sm font-medium">Python</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-4">
+              <div className="w-12 h-12 mb-3">
+                <Zap className="w-full h-full text-primary" />
+              </div>
+              <p className="text-sm font-medium">SQL</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Popular Courses */}
+      {/* Trending Courses */}
       <section className="py-16 px-4">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-8">Popular Courses</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-2">Trending Courses</h2>
+          <p className="text-muted-foreground mb-8">Start your learning journey with our most popular courses</p>
           {loading ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground">Loading courses...</p>
@@ -130,6 +131,8 @@ const Index = () => {
           )}
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 };
