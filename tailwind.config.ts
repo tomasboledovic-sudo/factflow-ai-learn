@@ -50,6 +50,14 @@ export default {
         success: "hsl(var(--success))",
         warning: "hsl(var(--warning))",
         info: "hsl(var(--info))",
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar-background))",
+          foreground: "hsl(var(--sidebar-foreground))",
+          border: "hsl(var(--sidebar-border))",
+        },
+        footer: {
+          background: "hsl(var(--footer-background))",
+        },
       },
       backgroundImage: {
         'gradient-hero': 'var(--gradient-hero)',

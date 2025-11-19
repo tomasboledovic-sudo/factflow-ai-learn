@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import Navigation from "@/components/Navigation";
+import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Award, Flame, Zap, TrendingUp } from "lucide-react";
@@ -122,19 +122,16 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
-        <Navigation />
+      <DashboardLayout>
         <div className="container mx-auto px-4 py-12 text-center">
           <p className="text-muted-foreground">Loading dashboard...</p>
         </div>
-      </div>
+      </DashboardLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-
+    <DashboardLayout>
       <div className="container mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold mb-8">Your Dashboard</h1>
 
@@ -220,7 +217,7 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 
