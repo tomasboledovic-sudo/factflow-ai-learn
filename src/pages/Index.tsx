@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { User } from "@supabase/supabase-js";
 import Navigation from "@/components/Navigation";
+import { DashboardLayout } from "@/components/DashboardLayout";
 import CourseCard from "@/components/CourseCard";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -19,6 +21,15 @@ interface Course {
 const Index = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
+    };
+    checkUser();
+  }, []);
 
   useEffect(() => {
     const fetchPopularCourses = async () => {
@@ -39,9 +50,9 @@ const Index = () => {
     fetchPopularCourses();
   }, []);
 
-  return (
+  const content = (
     <div className="min-h-screen bg-background">
-      <Navigation />
+      {!user && <Navigation />}
       
       {/* Hero Section - Brilliant.org inspired */}
       <section className="relative overflow-hidden py-20 px-4">
@@ -135,6 +146,12 @@ const Index = () => {
       <Footer />
     </div>
   );
+
+  if (user) {
+    return <DashboardLayout>{content}</DashboardLayout>;
+  }
+
+  return content;
 };
 
 export default Index;
